@@ -1,0 +1,20 @@
+ip addr add 80.64.1.4/29 dev eth0 #this attaches this router to the staff machine subnet
+ip link set up dev eth0
+
+ip addr add 80.64.0.2/29 dev eth1
+ip link set up dev eth1 #this attaches the router to the DMZ subnet
+
+#we can route cross-subnet by adding the subnet and then how to reach it with the DMZ IP on the router
+
+ip route add 80.64.2.0/29 via 80.64.0.3 #staff subnet via DMZ
+ip route add 50.0.0.0/29 via 80.64.0.1 #internet subnet via DMZ router
+
+#iptable rule
+iptables -F
+
+iptables -P FORWARD DROP #default forward chain policy drop
+
+iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT  #no incoming connections allowed unless previous established to prevent any potential malicious connections from the servers
+
+iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT #allow all outbound traffic
+

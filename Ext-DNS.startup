@@ -1,0 +1,8 @@
+#assign IP and network interface
+ip addr add 20.30.40.3/30 dev eth0
+ip link set up dev eth0
+ip route add 50.0.0.0/29 via 20.30.40.1
+
+#start the dns service
+chmod +r /etc/dnsmasq_static_hosts.conf
+systemctl start dnsmasq

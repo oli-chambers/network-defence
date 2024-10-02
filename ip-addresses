@@ -1,0 +1,28 @@
+
+
+
+Ext-DNS eth0 80.64.0.4/29
+Ext-Office eth0 22.39.224.18/30
+Ext-WWW eth0 80.64.0.5/29
+Int-DNS eth0 80.64.2.4/29
+
+
+Internet eth0 50.0.0.1/29
+
+DMZ-Router eth1 50.0.0.2/29
+DMZ-Router eth0 80.64.0.1/29
+
+Int-WWW eth0 80.64.2.5/29
+LDAP eth0 80.64.2.2/29
+Mail eth0 80.64.2.3/29
+OpenVPN eth0 80.64.89.215/16
+Squid eth0 80.64.37.201/16
+Server-Router eth0 80.64.2.1/29
+Server-Router eth1 80.64.0.3/29
+
+
+Staff-1 eth0 80.64.1.1/29
+Staff-2 eth0 80.64.1.2/29
+Staff-3 eth0 80.64.1.3/29
+Staff-Router eth0 80.64.1.4/29
+Staff-Router eth1 80.64.0.2/29

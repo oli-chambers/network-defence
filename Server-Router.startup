@@ -1,0 +1,22 @@
+#assign IP and network interface
+ip addr add 80.64.2.1/29 dev eth0 # add ip for server subnet
+ip link set up dev eth0 
+
+ip addr add 80.64.0.3/24 dev eth1 # add ip for dmz subnet
+ip link set up dev eth1
+
+#setup the routes
+ip route add 80.64.1.0/29 via 80.64.0.2 # route to staff subnet via staff router
+ip route add default via 80.64.0.1 #route to internet via dmz router 
+
+
+#firewall rules
+iptables -F
+
+iptables -P FORWARD DROP #default policy is drop everything
+
+iptables -A FORWARD -p tcp -m multiport --dports 25,587,993,1194,389,4444 -j ACCEPT # allow incoming traffic on only these ports; we used 4444 for testing connectivity between the different zones of trust
+
+iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT #allow traffic leaving
+
+
